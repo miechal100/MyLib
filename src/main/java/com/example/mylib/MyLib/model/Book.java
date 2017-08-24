@@ -36,4 +36,24 @@ public class Book {
     public String toString() {
         return String.format("Book[id=%s, title=%s, author=%s, bookOwner=%s, date=%s]", id, title, author, bookOwner.getFirstName(), date);
     }
+
+    public String getTitle(){
+        return title;
+    }
+
+    public String getAuthor(){
+        return author;
+    }
+
+    public String getId(){
+        return id;
+    }
+
+    public String getDate(){
+        return date.toString();
+    }
+
+    public String getBookOwner(){
+        return bookOwner.getFirstName();
+    }
 }

@@ -2,7 +2,6 @@ package com.example.mylib.MyLib.model;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
-//import org.springframework.data.annotation.Id;
 
 /**
  * Created by hp on 2017-08-10.
