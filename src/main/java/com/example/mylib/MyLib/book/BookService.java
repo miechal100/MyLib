@@ -26,4 +26,9 @@ public class BookService {
         Book book = bookRepository.findByTitle(title).orElseThrow(BookNotFoundException::new);
         return new BookDTO(book);
     }
+
+    BookDTO save(BookDTO bookDTO) {
+        Book savedBook = bookRepository.save(new Book(bookDTO.getTitle(), bookDTO.getAuthor()));
+        return new BookDTO(savedBook);
+    }
 }

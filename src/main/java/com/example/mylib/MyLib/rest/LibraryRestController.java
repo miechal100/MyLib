@@ -52,14 +52,10 @@ public class LibraryRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add/{title}/{authorFirstName}/{authorLastName}" )
-    public ResponseEntity<?> addBookToLibrary(@PathVariable String title, @PathVariable String authorFirstName,
+    public void addBookToLibrary(@PathVariable String title, @PathVariable String authorFirstName,
                                               @PathVariable String authorLastName){
 
-        HttpHeaders httpHeader = new HttpHeaders();
-
-        Book newBook = this.bookRepository.save(new Book(title, authorFirstName+" "+authorLastName, null));
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        this.bookRepository.save(new Book(title, authorFirstName+" "+authorLastName, null));
     }
 
 
