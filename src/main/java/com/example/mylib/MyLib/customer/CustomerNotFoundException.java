@@ -1,4 +1,4 @@
-package com.example.mylib.MyLib.rest.exceptions;
+package com.example.mylib.MyLib.customer;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -1,10 +1,9 @@
 package com.example.mylib.MyLib.rest;
 
-import com.example.mylib.MyLib.model.Book;
-import com.example.mylib.MyLib.repositories.BookRepository;
-import com.example.mylib.MyLib.repositories.CustomerRepository;
-import com.example.mylib.MyLib.rest.exceptions.AuthorNotFoundException;
-import com.example.mylib.MyLib.rest.exceptions.CustomerNotFoundException;
+import com.example.mylib.MyLib.book.Book;
+import com.example.mylib.MyLib.book.BookRepository;
+import com.example.mylib.MyLib.customer.CustomerRepository;
+import com.example.mylib.MyLib.customer.CustomerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

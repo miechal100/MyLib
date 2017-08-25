@@ -1,9 +1,9 @@
 package com.example.mylib.MyLib;
 
-import com.example.mylib.MyLib.model.Book;
-import com.example.mylib.MyLib.model.Customer;
-import com.example.mylib.MyLib.repositories.BookRepository;
-import com.example.mylib.MyLib.repositories.CustomerRepository;
+import com.example.mylib.MyLib.book.Book;
+import com.example.mylib.MyLib.customer.Customer;
+import com.example.mylib.MyLib.book.BookRepository;
+import com.example.mylib.MyLib.customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
