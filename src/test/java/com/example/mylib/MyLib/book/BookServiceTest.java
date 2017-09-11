@@ -49,7 +49,7 @@ public class BookServiceTest {
 
         try{
             bookService.findByTitle("Panda Teusz");
-        }catch (NullPointerException e){
+        }catch (RuntimeException e){
             thrown = true;
         }
         Assert.assertTrue(thrown);
@@ -66,7 +66,7 @@ public class BookServiceTest {
 
         try{
             bookService.findByAuthor("Jan Kochanowski");
-        }catch (NullPointerException e){
+        }catch (RuntimeException e){
             thrown = true;
         }
 

@@ -53,7 +53,7 @@ public class CustomerServiceTest {
 
         try{
             customerService.findByFirstNameAndLastName("Jan", "Konieczny");
-        }catch (NullPointerException e){
+        }catch (RuntimeException e){
             thrown = true;
         }
 
@@ -71,7 +71,7 @@ public class CustomerServiceTest {
 
         try{
             customerService.findByLastName("Kochanowski");
-        }catch (NullPointerException e){
+        }catch (RuntimeException e){
             thrown = true;
         }
 
