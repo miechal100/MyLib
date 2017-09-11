@@ -1,10 +1,10 @@
 package com.example.mylib.MyLib.customer;
 
-import com.example.mylib.MyLib.customer.Customer;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Created by hp on 2017-08-24.
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @Repository
 interface CustomerRepository extends MongoRepository<Customer, String> {
 
-    Customer findByFirstNameAndLastName(String firstName, String lastName);
-    ArrayList<Customer> findByFirstName(String firstName);
+    Optional<Customer> findByFirstNameAndLastName(String firstName, String lastName);
+    Stream<Customer> findByLastName(String lastName);
 
 }
