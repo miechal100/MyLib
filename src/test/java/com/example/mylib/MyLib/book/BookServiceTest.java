@@ -1,5 +1,6 @@
 package com.example.mylib.MyLib.book;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,14 +20,16 @@ public class BookServiceTest {
 
     private BookService bookService;
 
-    private Optional<Book> getBookOptional(Book book){
+    private Optional<Book> getBookOptional(Book book) {
         return Optional.of(book);
     }
-    private Stream<Book> getBookStream(List<Book> bookList){
+
+    private Stream<Book> getBookStream(List<Book> bookList) {
         return bookList.stream();
     }
-        @Before
-    public void setup(){
+
+    @Before
+    public void setup() {
         MockitoAnnotations.initMocks(this);
 
         Mockito.when(bookRepository.findByTitle("Pan Tadeusz"))
@@ -35,38 +38,37 @@ public class BookServiceTest {
         Mockito.when(bookRepository.findByAuthor("Adam Mickiewicz"))
                 .thenReturn(getBookStream(makeList()));
 
+        Mockito.when(bookRepository.findByTitle("Panda Teusz"))
+                .thenReturn(Optional.empty());
+
         bookService = new BookService(bookRepository);
     }
 
     @Test
-    public void bookFound(){
+    public void bookFound() {
         Assert.assertNotNull(bookService.findByTitle("Pan Tadeusz"));
     }
 
     @Test
-    public void bookNotFound(){
+    public void bookNotFound() {
         boolean thrown = false;
 
-        try{
-            bookService.findByTitle("Panda Teusz");
-        }catch (RuntimeException e){
-            thrown = true;
-        }
-        Assert.assertTrue(thrown);
+        Assertions.assertThatThrownBy(() -> bookService.findByTitle("Panda Teusz"))
+                .isInstanceOf(BookNotFoundException.class);
     }
 
     @Test
-    public void authorBooksFound(){
+    public void authorBooksFound() {
         Assert.assertNotNull(bookService.findByAuthor("Adam Mickiewicz"));
     }
 
     @Test
-    public void authorBooksNotFound(){
+    public void authorBooksNotFound() {
         boolean thrown = false;
 
-        try{
+        try {
             bookService.findByAuthor("Jan Kochanowski");
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             thrown = true;
         }
 
