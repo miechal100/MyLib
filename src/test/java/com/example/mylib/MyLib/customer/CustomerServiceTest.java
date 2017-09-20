@@ -1,6 +1,7 @@
 package com.example.mylib.MyLib.customer;
 
 
+import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +40,12 @@ public class CustomerServiceTest {
         Mockito.when(customerRepository.findByLastName("Kowalski"))
                 .thenReturn(getCustomerStream(makeList()));
 
+        Mockito.when(customerRepository.findByFirstNameAndLastName("Jan", "Konieczny"))
+                .thenReturn(Optional.empty());
+
+        Mockito.when(customerRepository.findByLastName("Konieczny"))
+                .thenReturn(Stream.empty());
+
         customerService = new CustomerService(customerRepository);
     }
 
@@ -49,15 +56,8 @@ public class CustomerServiceTest {
 
     @Test
     public void customerNotFound() throws Exception{
-        boolean thrown = false;
-
-        try{
-            customerService.findByFirstNameAndLastName("Jan", "Konieczny");
-        }catch (RuntimeException e){
-            thrown = true;
-        }
-
-        Assert.assertTrue(thrown);
+        Assertions.assertThatThrownBy(() -> customerService.findByFirstNameAndLastName("Jan","Konieczny"))
+                .hasMessage("Jan Konieczny not found");
     }
 
     @Test
@@ -66,16 +66,8 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void customersNotFound() throws Exception{
-        boolean thrown = false;
-
-        try{
-            customerService.findByLastName("Kochanowski");
-        }catch (RuntimeException e){
-            thrown = true;
-        }
-
-        Assert.assertTrue(thrown);
+    public void customersNotFound() throws Exception {
+        Assertions.assertThat(customerService.findByLastName("Konieczny")).isEmpty();
     }
 
     private List<Customer> makeList() {

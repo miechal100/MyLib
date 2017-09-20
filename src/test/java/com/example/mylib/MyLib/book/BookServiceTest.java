@@ -41,6 +41,9 @@ public class BookServiceTest {
         Mockito.when(bookRepository.findByTitle("Panda Teusz"))
                 .thenReturn(Optional.empty());
 
+        Mockito.when(bookRepository.findByAuthor("Jan Kochanowski"))
+                .thenReturn(Stream.empty());
+
         bookService = new BookService(bookRepository);
     }
 
@@ -51,8 +54,6 @@ public class BookServiceTest {
 
     @Test
     public void bookNotFound() {
-        boolean thrown = false;
-
         Assertions.assertThatThrownBy(() -> bookService.findByTitle("Panda Teusz"))
                 .isInstanceOf(BookNotFoundException.class);
     }
@@ -64,15 +65,7 @@ public class BookServiceTest {
 
     @Test
     public void authorBooksNotFound() {
-        boolean thrown = false;
-
-        try {
-            bookService.findByAuthor("Jan Kochanowski");
-        } catch (RuntimeException e) {
-            thrown = true;
-        }
-
-        Assert.assertTrue(thrown);
+        Assertions.assertThat(bookService.findByAuthor("Jan Kochanowski")).isEmpty();
     }
 
     private List<Book> makeList() {

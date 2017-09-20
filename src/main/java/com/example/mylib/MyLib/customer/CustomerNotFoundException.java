@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class CustomerNotFoundException extends RuntimeException{
 
     public CustomerNotFoundException(String firstName, String lastName){
-        super(firstName + lastName + " not found");
+        super(firstName + " " + lastName + " not found");
     }
 
 }
