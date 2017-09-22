@@ -1,6 +1,7 @@
 package com.example.mylib.MyLib.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 /**
  * Created by hp on 2017-08-26.
  */
+@Component
 public class CustomerService {
 
     private CustomerRepository customerRepository;
@@ -17,21 +19,21 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    CustomerDTO findByFirstNameAndLastName(String firstName, String lastName){
+    public CustomerDTO findByFirstNameAndLastName(String firstName, String lastName){
         Customer customer = customerRepository.findByFirstNameAndLastName(firstName, lastName)
                 .orElseThrow( () -> new CustomerNotFoundException(firstName, lastName));
 
         return new CustomerDTO(customer);
     }
 
-    List<CustomerDTO> findByLastName(String lastName){
+    public List<CustomerDTO> findByLastName(String lastName){
         return customerRepository.findByLastName(lastName)
                 .map(CustomerDTO::new)
                 .collect(Collectors.toList());
     }
 
-    CustomerDTO save(CustomerDTO customerDTO){
-        Customer savedCustomer = customerRepository.save(new Customer(customerDTO.getFirstName(), customerDTO.getLastName()));
+    public CustomerDTO save(String firstName, String lastName){
+        Customer savedCustomer = customerRepository.save(new Customer(firstName, lastName));
         return new CustomerDTO(savedCustomer);
     }
 

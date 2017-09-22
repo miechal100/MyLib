@@ -2,21 +2,23 @@ package com.example.mylib.MyLib.renting;
 
 import com.example.mylib.MyLib.book.BookDTO;
 import com.example.mylib.MyLib.customer.CustomerDTO;
+import com.example.mylib.MyLib.utils.DateUtils;
+import lombok.Getter;
 
 import java.util.Date;
 
+@Getter
 public class BookRent {
 
-    private String bookId;
-    private String title;
-    private String customerId;
+    private BookDTO bookDTO;
+    private CustomerDTO customerDTO;
 
     private Date rentDate;
 
     public BookRent(BookDTO book, CustomerDTO customer){
-        this.bookId = book.getId();
-        this.title = book.getTitle();
-        this.customerId = customer.getCustomerId();
+        this.bookDTO = book;
+        this.customerDTO = customer;
+        rentDate = DateUtils.now();
     }
 
 

@@ -27,8 +27,8 @@ class BookController {
     }
 
     @PostMapping
-    public BookDTO save(@RequestBody BookDTO bookDTO) {
-        return bookService.save(bookDTO);
+    public BookDTO save(@RequestBody String firstName, String lastName) {
+        return bookService.save(firstName, lastName);
     }
 
 

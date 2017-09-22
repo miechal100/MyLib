@@ -1,37 +1,59 @@
 package com.example.mylib.MyLib.renting;
 
 import com.example.mylib.MyLib.book.BookDTO;
+import com.example.mylib.MyLib.book.BookNotFoundException;
 import com.example.mylib.MyLib.book.BookService;
 import com.example.mylib.MyLib.customer.CustomerDTO;
+import com.example.mylib.MyLib.customer.CustomerNotFoundException;
 import com.example.mylib.MyLib.customer.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class BookRentService {
 
     private CustomerService customerService;
     private BookService bookService;
 
-    @Autowired
     public BookRentService(BookService bookService, CustomerService customerService){
         this.bookService = bookService;
         this.customerService = customerService;
     }
 
-    public BookRent rent(String title, String firstName, String lastName){
+    public BookRent rentBook(BookDTO bookDTO, CustomerDTO customerDTO){
 
-        CustomerDTO customer = customerService.
+        BookDTO book = bookService.findByTitle(bookDTO.getTitle());
+        CustomerDTO customer = customerService.findByFirstNameAndLastName(customerDTO.getFirstName(),
+                customerDTO.getLastName());
 
-        validateBook();
-        validateCustomer();
+        validateBook(book);
+        validateCustomer(customer);
+
+        if(bookDTO.isRented()) return null;
+
+        bookDTO.changeBookStatus();
 
         return new BookRent(bookDTO, customerDTO);
     }
 
-    public void validateBook(){
+    public BookRent returnBook(BookRent bookRent){
 
+        if(bookRent != null){
+            bookRent.getBookDTO().changeBookStatus();
+            return null;
+        }
+        throw new BookNotRentedException();
     }
 
-    public void validateCustomer(){
+    public void validateBook(BookDTO book){
+        if(book == null)
+        throw new BookNotFoundException();
+    }
 
+    public void validateCustomer(CustomerDTO customer){
+        if(customer == null)
+        throw new CustomerNotFoundException(customer.getFirstName(), customer.getLastName());
     }
 }
+
+
+
+
+
