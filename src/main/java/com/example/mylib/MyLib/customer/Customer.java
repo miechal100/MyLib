@@ -1,31 +1,29 @@
-package com.example.mylib.MyLib.model;
+package com.example.mylib.MyLib.customer;
 
+import com.example.mylib.MyLib.book.BookDTO;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
-//import org.springframework.data.annotation.Id;
+
+import java.util.List;
 
 /**
  * Created by hp on 2017-08-10.
  */
-public class Customer {
+@Getter
+class Customer {
 
-    @Getter
     @Id
     private String id;
 
-    @Getter
     private String firstName;
 
-    @Getter
     private String lastName;
+
+    private List<BookDTO> booksOwned;
 
     public Customer(String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
-    public Customer() {}
-
-    public String getFirstName(){ return lastName; }
 
 }
